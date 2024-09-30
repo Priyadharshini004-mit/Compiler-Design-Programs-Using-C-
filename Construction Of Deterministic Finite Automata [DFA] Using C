@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+int iffound(int ptr, int final[], int f) {
+for(int i = 0; i < f; i++) {
+if(ptr == final[i]) return 1;
+}
+return 0;
+}
+
+int main() {
+int n, m, f, ptr = 0;
+char loop = 'y', str[10];
+int finalstates[10];
+
+printf("States: ");
+scanf("%d", &n);
+printf("Inputs: ");
+scanf("%d", &m);
+printf("No. of Final States: ");
+scanf("%d", &f);
+printf("Final States: ");
+for(int i = 0; i < f; i++) {
+scanf("%d", &finalstates[i]);
+}
+
+int mat[n][m];
+
+for(int i = 0; i < n; i++) {
+for(int j = 0; j < m; j++) {
+printf("q%d -> %d Input =  ", i, j);
+scanf("%d", &mat[i][j]);
+}
+}
+
+
+printf("\nTransition Table: \n");
+printf("---------");
+for(int i = 0; i < m; i++) {
+printf("---------");
+}
+printf("\n| state  ");
+for(int i = 0; i < m; i++) {
+printf("|   %d    ", i);
+}
+printf("|\n");
+printf("---------");
+for(int i = 0; i < m; i++) {
+printf("---------");
+}
+printf("\n");
+
+for(int i = 0; i < n; i++) {
+printf("|  q%d    ", i);
+for(int j = 0; j < m; j++) {
+printf("|  q%d    ", mat[i][j]);
+}
+printf("|\n");
+printf("---------");
+for(int j = 0; j < m; j++) {
+printf("---------");
+}
+printf("\n");
+}
+
+do {
+ptr = 0;
+printf("Enter String: ");
+scanf("%s", str);
+
+
+
+for(int i = 0; i < strlen(str); i++) {
+int in = str[i] - '0';
+
+if (in < 0 || in >= m) {
+printf("Invalid Input '%c'.\n", str[i]);
+break;
+}
+
+printf("q%d, input: %d -> ", ptr, in);
+ptr = mat[ptr][in];
+printf("q%d\n", ptr);
+}
+
+if(iffound(ptr, finalstates, f)) {
+printf("String \"%s\" Accepted.\n", str);
+} else {
+printf("String \"%s\" not Accepted\n", str);
+}
+
+printf("To Continue Enter y: ");
+scanf(" %c", &loop);
+
+} while(loop == 'y');
+
+return 0;
+}
+
