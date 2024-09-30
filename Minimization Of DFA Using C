@@ -1,0 +1,166 @@
+#include<stdio.h>
+#include<string.h>
+int main(){
+int check = 1;
+while(check){
+printf("How many no. of states you need ? : ");
+int numOfstates;
+scanf("%d",&numOfstates);
+printf("How many inputs you need? : ");
+int numOfinputs;
+scanf("%d",&numOfinputs);
+int inputs[numOfinputs];
+printf("Enter inputs: \n");
+for(int i=0; i< numOfinputs;i++){
+scanf("%d", &inputs[i]);
+}
+int dfa[numOfstates][numOfstates];
+int i=0,j=0;
+printf("Enter -1 if there is no transition.\n");
+for(i=0;i<numOfstates;i++){
+for(j=0; j< numOfinputs;j++){
+printf("Enter Q%d  => %d input = ", i,inputs[j]);
+scanf("%d",&dfa[i][inputs[j]]);
+}
+}
+printf("\n");
+printf("\n");
+printf("\n");
+printf("Truth Table for DFA:\n");
+printf("states\t\t");
+for(i=0; i< numOfinputs; i++){
+printf("%d \t\t", inputs[i]);
+}
+printf("\n");
+printf("-----------------------------------");
+printf("\n");
+for(i=0 ; i< numOfstates; i++){
+printf("%d\t\t",i);
+for(j=0 ; j < numOfinputs;j++){
+printf("%d\t\t", dfa[i][inputs[j]]);
+}
+printf("\n");
+}
+printf("\n");
+printf("\n");
+printf("\n");
+int finalStates,nonfinalStates;
+printf("How many non final states you need? :");
+scanf("%d", &nonfinalStates);
+int stateNonfinal[nonfinalStates];
+printf("Enter non Final States : \n");
+for(i=0; i< nonfinalStates; i++){
+scanf("%d", &stateNonfinal[i]);
+}
+int minimizedNonFinal[nonfinalStates];
+int contain[nonfinalStates];
+for(i=0 ; i<nonfinalStates; i++){
+contain[i] = 1;
+}
+int flag = 0,k=0,m=0;
+for(i=0 ; i< nonfinalStates ; i++){
+for(j = i+1 ; j< nonfinalStates ; j++){
+flag = 0;
+for(k =0; k< numOfinputs; k++){
+if(dfa[stateNonfinal[i]][inputs[k]] != dfa[stateNonfinal[j]][inputs[k]]){
+flag = 1;
+break;
+}
+}
+if(flag == 0){
+minimizedNonFinal[m] = stateNonfinal[i];
+m++;
+contain[j] = 0;
+}
+else if(flag == 1 && contain[i] == 1){
+minimizedNonFinal[m] = stateNonfinal[i];
+m++;
+j++;
+}
+}
+}
+printf("The non-final states you entered are:\n");
+int nonFinalCount=0;
+for(i =0 ; i< m; i++){
+printf("%d\t", minimizedNonFinal[i]);
+nonFinalCount++;
+}
+printf("\n");
+printf("How many final states you need? :");
+scanf("%d", &finalStates);
+int stateFinal[finalStates];
+printf("Enter final states : \n");
+for(i=0; i< finalStates; i++){
+scanf("%d", &stateFinal[i]);
+}
+int minimizedFinal[finalStates];
+contain[finalStates];
+for(i=0 ; i<finalStates; i++){
+contain[i] = 1;
+}
+flag = 0,k=0,m=0;
+for(i=0 ; i< finalStates ; i++){
+for(j = i+1 ; j< finalStates ; j++){
+flag = 0;
+for(k =0; k< numOfinputs; k++){
+if(dfa[stateFinal[i]][inputs[k]] != dfa[stateFinal[j]][inputs[k]]){
+flag = 1;
+break;
+}
+}
+if(flag == 0){
+minimizedFinal[m] = stateFinal[i];
+m++;
+contain[j] = 0;
+}
+else if(flag == 1 && contain[i] == 1){
+minimizedFinal[m] = stateFinal[i];
+m++;
+j++;
+}
+}
+}
+printf("The Final states you entered are:\n");
+int finalCount=0;
+for(i =0 ; i< m; i++){
+printf("%d\t", minimizedFinal[i]);
+finalCount++;
+}
+printf("\n");
+printf("\n");
+printf("\n");
+printf("\n");
+printf("Truth Table for Minimization of DFA:\n");
+printf("states\t\t");
+for(i=0; i< numOfinputs; i++){
+printf("%d  \t\t", inputs[i]);
+}
+printf("\n");
+printf("-----------------------------------");
+printf("\n");
+for(i=0 ; i< nonFinalCount; i++){
+printf("%d\t\t",minimizedNonFinal[i]);
+for(j=0 ; j < numOfinputs;j++){
+printf("%d\t\t", dfa[minimizedNonFinal[i]][inputs[j]]);
+}
+printf("\n");
+}
+for(i=0 ; i< finalCount; i++){
+printf("%d\t\t",minimizedFinal[i]);
+for(j=0 ; j < numOfinputs;j++){
+printf("%d\t\t", dfa[minimizedFinal[i]][inputs[j]]);
+}
+printf("\n");
+}
+printf("\n");
+printf("\n");
+printf("\n");
+char dummy;
+printf("Do you want to continue(y/n)?");
+scanf("%c",&dummy);
+char ch;
+scanf("%c", &ch);
+if(ch == 'n')
+check = 0;
+}
+}
