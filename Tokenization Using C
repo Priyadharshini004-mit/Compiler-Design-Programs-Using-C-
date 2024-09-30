@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+void check(char s[]);
+int main() {
+printf("\n");
+printf("Symbols:\n");
+printf("0 - Keyword\n");
+printf("1 - Assignment Operator\n");
+printf("2 - Constant\n");
+printf("3 - Arithmetic Operator\n");
+printf("4 - Special Character\n");
+printf("5 - Identifier\n");
+printf("\n");
+char str[100];
+printf("Enter a statement: ");
+scanf(" %[^\n]", str);
+char del[] = " \t";
+printf("\n------------------------------------------------------\n");
+printf("|%10s|%20s|%20s|\n", "SYMBOL", "STATEMENT", "SPECIFICATION");
+printf("------------------------------------------------------\n");
+char* token = strtok(str, del);
+while (token != NULL) {
+if (strcmp(token, ";") == 0 || strcmp(token, ",") == 0 || strcmp(token, ".") == 0) {
+printf("|%10d|%20s|%20s|\n", 4, token, "Special Character");
+} else {
+check(token);
+}
+token = strtok(NULL, del);
+printf("------------------------------------------------------\n");
+}
+return 0;
+}
+void check(char s[]) {
+if (strcmp(s, "int") == 0 || strcmp(s, "char") == 0 || strcmp(s, "float") == 0 || strcmp(s, "long") == 0 ||
+strcmp(s, "double") == 0 || strcmp(s, "bool") == 0 || strcmp(s, "while") == 0 || strcmp(s, "do") == 0 ||
+strcmp(s, "return") == 0 || strcmp(s, "if") == 0 || strcmp(s, "else") == 0) {
+printf("|%10d|%20s|%20s|\n", 0, s, "Keyword");
+}
+else if (strcmp(s, "=") == 0 || strcmp(s, "+=") == 0 || strcmp(s, "-=") == 0 || strcmp(s, "/=") == 0 ||
+strcmp(s, "*=") == 0 || strcmp(s, "%=") == 0) {
+printf("|%10d|%20s|%20s|\n", 1, s, "Assignment Operator");
+}
+else if (isdigit(s[0]) && strspn(s, "0123456789") == strlen(s)) {
+printf("|%10d|%20s|%20s|\n", 2, s, "Constant");
