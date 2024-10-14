@@ -78,3 +78,24 @@
 
 
 ![image](https://github.com/user-attachments/assets/dfadf3db-a85d-4322-807b-5c6ae8a17b4a)
+
+
+
+
+**First() & Follow() Using C**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/c7808904-5445-4137-911a-5d7b67de2ad5)
