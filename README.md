@@ -99,3 +99,24 @@
 
 
 ![image](https://github.com/user-attachments/assets/c7808904-5445-4137-911a-5d7b67de2ad5)
+
+
+
+
+**Predictive Parser using C**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/afd4749c-c47e-4aca-b61e-465b888ebbfb)
